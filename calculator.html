@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penghitung Volume Bangun Ruang</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: calc(100% - 22px);
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            background-color: #5cb85c;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 15px;
+        }
+        button:hover {
+            background-color: #4cae4c;
+        }
+        .section-title {
+            background-color: #e0f7fa;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #00796b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>📐 Penghitung Volume 5 Bangun Ruang</h1>
+    <p>Masukkan nilai-nilai yang dibutuhkan di bawah ini. Hasil perhitungan akan ditampilkan dalam bentuk *alert* setelah menekan tombol.</p>
+
+    <div class="section-title">Balok ($V = p \times l \times t$)</div>
+    <label for="panjangBalok">Panjang:</label>
+    <input type="number" id="panjangBalok" value="10" min="0">
+    <label for="lebarBalok">Lebar:</label>
+    <input type="number" id="lebarBalok" value="5" min="0">
+    <label for="tinggiBalok">Tinggi:</label>
+    <input type="number" id="tinggiBalok" value="4" min="0">
+
+    <div class="section-title">Tabung ($V = 3,14 \times r^2 \times t$)</div>
+    <label for="jariTabung">Jari-jari (r):</label>
+    <input type="number" id="jariTabung" value="7" min="0">
+    <label for="tinggiTabung">Tinggi (t):</label>
+    <input type="number" id="tinggiTabung" value="10" min="0">
+
+    <div class="section-title">Bola ($V = 4/3 \times 3,14 \times r^3$)</div>
+    <label for="jariBola">Jari-jari (r):</label>
+    <input type="number" id="jariBola" value="6" min="0">
+
+    <div class="section-title">Prisma Segitiga ($V = 0,5 \times a_{alas} \times t_{alas} \times t_{prisma}$)</div>
+    <label for="panjangAlasPrisma">Panjang Alas Segitiga ($a_{alas}$):</label>
+    <input type="number" id="panjangAlasPrisma" value="8" min="0">
+    <label for="tinggiAlasPrisma">Tinggi Alas Segitiga ($t_{alas}$):</label>
+    <input type="number" id="tinggiAlasPrisma" value="5" min="0">
+    <label for="tinggiPrisma">Tinggi Prisma ($t_{prisma}$):</label>
+    <input type="number" id="tinggiPrisma" value="12" min="0">
+
+    <div class="section-title">Kerucut ($V = 1/3 \times 3,14 \times r_{alas}^2 \times t_{kerucut}$)</div>
+    <label for="jariAlasKerucut">Jari-jari Alas (r):</label>
+    <input type="number" id="jariAlasKerucut" value="5" min="0">
+    <label for="tinggiKerucut">Tinggi Kerucut (t):</label>
+    <input type="number" id="tinggiKerucut" value="9" min="0">
+
+    <button onclick="hitungSemuaVolume()">Hitung Semua Volume</button>
+
+</div>
+
+<script>
+    // Konstanta Pi
+    const PI = 3.14;
+
+    /**
+     * Mengambil nilai input dari elemen HTML
+     * @param {string} id - ID elemen input
+     * @returns {number} Nilai input sebagai angka (atau 0 jika tidak valid)
+     */
+    function getInput(id) {
+        const value = document.getElementById(id).value;
+        // Mengubah string menjadi float dan memastikan nilainya non-negatif
+        const numberValue = parseFloat(value);
+        return isNaN(numberValue) || numberValue < 0 ? 0 : numberValue;
+    }
+
+    /**
+     * Fungsi utama untuk menghitung volume semua bangun ruang
+     * dan menampilkan hasilnya dalam bentuk alert.
+     */
+    function hitungSemuaVolume() {
+        let hasilAlert = "Hasil Perhitungan Volume:\n\n";
+
+        // 1. Volume Balok: V = Panjang x Lebar x Tinggi
+        const panjangBalok = getInput("panjangBalok");
+        const lebarBalok = getInput("lebarBalok");
+        const tinggiBalok = getInput("tinggiBalok");
+        const volumeBalok = panjangBalok * lebarBalok * tinggiBalok;
+        hasilAlert += `1. Balok (p=${panjangBalok}, l=${lebarBalok}, t=${tinggiBalok}): ${volumeBalok.toFixed(2)}\n`;
+
+        // 2. Volume Tabung: V = 3,14 x Jari-jari x Jari-jari x Tinggi
+        const jariTabung = getInput("jariTabung");
+        const tinggiTabung = getInput("tinggiTabung");
+        const volumeTabung = PI * jariTabung * jariTabung * tinggiTabung;
+        hasilAlert += `2. Tabung (r=${jariTabung}, t=${tinggiTabung}): ${volumeTabung.toFixed(2)}\n`;
+
+        // 3. Volume Bola: V = 4/3 x 3,14 x Jari-jari x Jari-jari x Jari-jari
+        const jariBola = getInput("jariBola");
+        // Rumus lengkap bola adalah (4/3) * PI * r^3
+        const volumeBola = (4/3) * PI * jariBola * jariBola * jariBola;
+        hasilAlert += `3. Bola (r=${jariBola}): ${volumeBola.toFixed(2)}\n`;
+
+        // 4. Volume Prisma Segitiga: V = 0,5 x Tinggi_Alas x Panjang_Alas x Tinggi_Prisma
+        const panjangAlasPrisma = getInput("panjangAlasPrisma");
+        const tinggiAlasPrisma = getInput("tinggiAlasPrisma");
+        const tinggiPrisma = getInput("tinggiPrisma");
+        const volumePrisma = 0.5 * tinggiAlasPrisma * panjangAlasPrisma * tinggiPrisma;
+        hasilAlert += `4. Prisma Segitiga (a=${panjangAlasPrisma}, t_alas=${tinggiAlasPrisma}, t_prisma=${tinggiPrisma}): ${volumePrisma.toFixed(2)}\n`;
+
+        // 5. Volume Kerucut: V = 1/3 x 3,14 x Jari-jari_Alas x Jari-jari_Alas x Tinggi Kerucut
+        const jariAlasKerucut = getInput("jariAlasKerucut");
+        const tinggiKerucut = getInput("tinggiKerucut");
+        // Rumus lengkap kerucut adalah (1/3) * PI * r^2 * t
+        const volumeKerucut = (1/3) * PI * jariAlasKerucut * jariAlasKerucut * tinggiKerucut;
+        hasilAlert += `5. Kerucut (r=${jariAlasKerucut}, t=${tinggiKerucut}): ${volumeKerucut.toFixed(2)}\n`;
+
+        // Menampilkan semua hasil dalam bentuk alert
+        alert(hasilAlert);
+    }
+</script>
+
+</body>
+</html>
